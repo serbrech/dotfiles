@@ -13,13 +13,13 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "0x6D746873"
-sudo scutil --set HostName "0x6D746873"
-sudo scutil --set LocalHostName "0x6D746873"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "0x6D746873"
+sudo scutil --set ComputerName "MB13"
+sudo scutil --set HostName "MB13"
+sudo scutil --set LocalHostName "MB13"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "MB13"
 
 # Set standby delay to 24 hours (default is 1 hour)
-sudo pmset -a standbydelay 86400
+sudo pmset -a standbydelay 3600
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
@@ -41,7 +41,7 @@ defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.5
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
 # Always show scrollbars
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
 # Disable smooth scrolling
@@ -49,7 +49,7 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 #defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
 
 # Disable opening and closing window animations
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+# defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool true
 
 # Increase window resize speed for Cocoa applications
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
@@ -74,7 +74,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 
 # Disable Resume system-wide
-defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
+# defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
 
 # Disable automatic termination of inactive apps
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
@@ -104,7 +104,7 @@ systemsetup -setcomputersleep Off > /dev/null
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Disable Notification Center and remove the menu bar icon
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # Disable smart quotes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
@@ -120,14 +120,14 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 sudo tmutil disablelocal
 
 # Disable hibernation (speeds up entering sleep mode)
-sudo pmset -a hibernatemode 0
+# sudo pmset -a hibernatemode 0
 
 # Remove the sleep image file to save disk space
-sudo rm /Private/var/vm/sleepimage
+# sudo rm /Private/var/vm/sleepimage
 # Create a zero-byte file instead…
-sudo touch /Private/var/vm/sleepimage
+#sudo touch /Private/var/vm/sleepimage
 # …and make sure it can’t be rewritten
-sudo chflags uchg /Private/var/vm/sleepimage
+#sudo chflags uchg /Private/var/vm/sleepimage
 
 # Disable the sudden motion sensor as it’s not useful for SSDs
 sudo pmset -a sms 0
@@ -186,7 +186,7 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 systemsetup -settimezone "Europe/Brussels" > /dev/null
 
 # Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Stop iTunes from responding to the keyboard media keys
 #launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
@@ -209,7 +209,7 @@ defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture disable-shadow -bool true
 
 # Enable subpixel font rendering on non-Apple LCDs
-defaults write NSGlobalDomain AppleFontSmoothing -int 2
+# defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
 # Enable HiDPI display modes (requires restart)
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
@@ -354,7 +354,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 defaults write com.apple.dock launchanim -bool false
 
 # Speed up Mission Control animations
-defaults write com.apple.dock expose-animation-duration -float 0.1
+defaults write com.apple.dock expose-animation-duration -float 0.3
 
 # Don’t group windows by application in Mission Control
 # (i.e. use the old Exposé behavior instead)
@@ -370,9 +370,9 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 defaults write com.apple.dock mru-spaces -bool false
 
 # Remove the auto-hiding Dock delay
-defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-delay -float 0.4
 # Remove the animation when hiding/showing the Dock
-defaults write com.apple.dock autohide-time-modifier -float 0
+defaults write com.apple.dock autohide-time-modifier -float 1
 
 # Enable the 2D Dock
 #defaults write com.apple.dock no-glass -bool true
@@ -523,10 +523,10 @@ sudo mdutil -E / > /dev/null
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use a modified version of the Pro theme by default in Terminal.app
-open "${HOME}/init/Mathias.terminal"
+open "${HOME}/init/Stephane.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
-defaults write com.apple.terminal "Default Window Settings" -string "Mathias"
-defaults write com.apple.terminal "Startup Window Settings" -string "Mathias"
+defaults write com.apple.terminal "Default Window Settings" -string "Stephane"
+defaults write com.apple.terminal "Startup Window Settings" -string "Stephane"
 
 # Enable “focus follows mouse” for Terminal.app and all X11 apps
 # i.e. hover over a window and start typing in it without clicking first
@@ -534,10 +534,10 @@ defaults write com.apple.terminal "Startup Window Settings" -string "Mathias"
 #defaults write org.x.X11 wm_ffm -bool true
 
 # Install pretty iTerm colors
-open "${HOME}/init/Mathias.itermcolors"
+#open "${HOME}/init/Mathias.itermcolors"
 
 # Don’t display the annoying prompt when quitting iTerm
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+# defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 ###############################################################################
 # Time Machine                                                                #
@@ -577,7 +577,7 @@ defaults write com.apple.addressbook ABShowDebugMenu -bool true
 defaults write com.apple.dashboard devmode -bool true
 
 # Enable the debug menu in iCal (pre-10.8)
-defaults write com.apple.iCal IncludeDebugMenu -bool true
+# defaults write com.apple.iCal IncludeDebugMenu -bool true
 
 # Use plain text mode for new TextEdit documents
 defaults write com.apple.TextEdit RichText -int 0
@@ -604,13 +604,13 @@ defaults write com.apple.appstore ShowDebugMenu -bool true
 ###############################################################################
 
 # Disable automatic emoji substitution (i.e. use plain text smileys)
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
+#defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
 
 # Disable smart quotes as it’s annoying for messages that contain code
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
+#defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
 
 # Disable continuous spell checking
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
 ###############################################################################
 # Google Chrome & Google Chrome Canary                                        #
@@ -625,17 +625,17 @@ defaults write com.google.Chrome.canary ExtensionInstallSources -array "https://
 ###############################################################################
 
 # Disable signing emails by default
-defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault -bool false
+# defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault -bool false
 
 ###############################################################################
 # SizeUp.app                                                                  #
 ###############################################################################
 
 # Start SizeUp at login
-defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true
+# defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true
 
 # Don’t show the preferences window on next start
-defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
+# defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
 
 ###############################################################################
 # Sublime Text                                                                #
@@ -693,7 +693,7 @@ defaults write com.twitter.twitter-mac HideInBackground -bool true
 ###############################################################################
 
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "Dock" \
-	"Finder" "Mail" "Messages" "Safari" "SizeUp" "SystemUIServer" "Terminal" \
+	"Finder" "Mail" "Messages" "Safari" "SystemUIServer" "Terminal" \
 	"Transmission" "Twitter" "iCal"; do
 	killall "${app}" > /dev/null 2>&1
 done
